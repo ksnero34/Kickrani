@@ -30,6 +30,7 @@ from utils.plots import Annotator, colors
 from utils.torch_utils import load_classifier, select_device, time_sync
 
 
+
 @torch.no_grad()
 def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
         source=ROOT / 'data/images',  # file/dir/URL/glob, 0 for webcam
@@ -221,7 +222,7 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
                     ###################################################
                     ##################뱅둔이가 추가#####################
                     ###################################################
-                    if cls == 0 and conf > 0.7:  # 불량 트럭일때
+                    if cls == 0 and conf > 0.65:  # 불량 트럭일때
                         print("normal")
 
                         
@@ -230,7 +231,8 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
                             continue
                         else:
                             capture = True
-                            '''
+                            print(vid_cap)
+                            
                             s, img = vid_cap.read()
                             
                             
@@ -245,17 +247,17 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
                             print("찍음!")
                             #uploadS3(num)
                             num += 1
-                            '''
+                            
                         
                         #    vid_cap.release()
                     if cls == 0 and conf < 0.5:
                         capture = False
-                    if cls == 1 and conf > 0.7:
+                    if cls == 1 and conf > 0.65:
                         print("no_helmet")
                         capture = False
-                    if cls==2 and conf >0.7:
+                    if cls==2 and conf >0.65:
                         print("wear_hat")
-                    if cls==3 and conf > 0.7:
+                    if cls==3 and conf > 0.65:
                         print("more_people")
                     
                     
